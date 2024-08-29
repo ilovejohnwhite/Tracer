@@ -1,1 +1,3 @@
-#Dummy file ensuring this package will be recognized
+from .ttkimg import NODE_CLASS_MAPPINGS
+
+__all__ = ['NODE_CLASS_MAPPINGS']
