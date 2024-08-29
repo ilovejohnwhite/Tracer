@@ -97,3 +97,7 @@ class TTKImageTracer:
 NODE_CLASS_MAPPINGS = {
         "Image Load TTK": TTKImageTracer
 }
+
+NODE_DISPLAY_NAME_MAPPINGS = {
+    "Image Load TTK": "Image Loader"
+}
