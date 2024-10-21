@@ -19,10 +19,9 @@ class SuckerPunch:
     def execute(self, image, resolution=512, **kwargs):
         from TatToolkit.SuckerPunch import SuckerPunchPro
 
-        # Map labels to cluster numbers if necessary
-        cluster_map = {"Light": 3, "Normal": 5, "Heavy": 7, "Unhinged": 9}
+        cluster_map = {"Light": 2, "Normal": 4, "Heavy": 6, "Unhinged": 8}
         label = kwargs.get("n_clusters", "Normal")
-        n_clusters = cluster_map.get(label, 5)  # Default to 5 if mapping fails
+        n_clusters = cluster_map.get(label, 4)  
 
         model = SuckerPunchPro(n_clusters=n_clusters)
 
@@ -35,5 +34,5 @@ NODE_CLASS_MAPPINGS = {
     "SuckerPunch": SuckerPunch
 }
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "SuckerPunch": "Dumb"
+    "SuckerPunch": "Good"
 }
