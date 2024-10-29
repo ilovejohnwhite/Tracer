@@ -8,6 +8,8 @@ from typing import Dict, Optional, Union
 from PIL import Image
 from TatToolkit.SuckerPunch import SuckerPunchPro
 from TatToolkit.LinkMaster import LinkMaster
+from TatToolkit.BillyGoat import BillyGoat
+from TatToolkit.VooDoo import VooDoo
 LOGGER = logging.getLogger(__name__)
 
 
@@ -23,6 +25,8 @@ MODELS = {
 MODELS.update({
     'SuckerPunch': {'class': SuckerPunchPro, 'checkpoint': False},
     'LinkMaster': {'class': LinkMaster, 'checkpoint': False},
+    'BillyGoat': {'class': BillyGoat, 'checkpoint': False},
+    'VooDoo': {'class': VooDoo, 'checkpoint': False},
 })
 
 
@@ -37,6 +41,8 @@ MODEL_PARAMS = {
 MODEL_PARAMS.update({
     'SuckerPunch': {},
     'LinkMaster': {},
+    'VooDoo': {},
+    'BillyGoat': {},
 })
 
 CHOICES = f"Choices for the processor are {list(MODELS.keys())}"
