@@ -4,8 +4,7 @@ from skimage import morphology, segmentation, feature
 from skimage.filters import gaussian
 from PIL import Image
 
-# Define the custom dashed line function outside of the class
-def create_custom_dashed_line(img, start, end, dash_length_px=5, gap_length_px=5, color=0, thickness=1):
+def create_custom_dashed_line(img, start, end, dash_length_px=7, gap_length_px=7, color=0, thickness=1):
     total_length = np.linalg.norm(end - start)
     num_dashes = int(total_length // (dash_length_px + gap_length_px))
 
@@ -20,8 +19,7 @@ class LinkMaster:
     def __init__(self):
         pass
 
-    def draw_spaced_outlines(self, img, contour, color=0, dash_length=5, gap_length=10, thickness=1):
-        # Iterate over the contour points and draw custom dashed lines between them
+    def draw_spaced_outlines(self, img, contour, color=0, dash_length=6, gap_length=10, thickness=1):
         for i in range(1, len(contour)):
             start_point = contour[i-1][0]
             end_point = contour[i][0]
@@ -34,9 +32,7 @@ class LinkMaster:
                     cv2.circle(img, (x, y), thickness, color, -1)                
 
     def apply_canny_edge_detection(self, img, sigma=3):
-        # Apply Gaussian blur with a larger sigma for smoother edges
         img_smoothed = gaussian(img, sigma=sigma)
-        # Apply Canny edge detection
         edges = feature.canny(img_smoothed, sigma=sigma)
         return edges
 
@@ -46,34 +42,29 @@ class LinkMaster:
         sorted_segments = sorted(unique_segments)
 
         for idx, segment in enumerate(sorted_segments):
-            # Modify the condition based on your segment skipping logic
-            if idx == 4:  # Example condition to skip a segment
+            if idx in [1,3]: #skipping darkest region off of black and 2nd region off of white (6 regions with normal set to 4 clusters and 1 cluster for each outlier mask, darkest is 0)
                 continue
-
             mask = (segmented_image == segment)
             segment_edges = segmentation.find_boundaries(mask, mode='outer', connectivity=1)
             if segment_edges.ndim == 3:
                 segment_edges = segment_edges.any(axis=2)
 
-            contours, _ = cv2.findContours(segment_edges.astype(np.uint8), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+            contours, _ = cv2.findContours(segment_edges.astype(np.uint8), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)            
             for contour in contours:
                 approx = cv2.approxPolyDP(contour, epsilon, True)
-                if idx != 1:  # Change idx != 1 to whatever segment(s) you want to be dashed
-                    self.draw_spaced_outlines(edges_image, approx, 0, thickness=thickness)
-                else:  # Solid outline for other segments
+                if idx != 0:  #which region has the solid outline
+                    self.draw_spaced_outlines(edges_image, approx, thickness=thickness)
+                else:  
                     cv2.drawContours(edges_image, [approx], -1, (0), thickness)
 
         return edges_image
 
     def __call__(self, input_image, output_type="np", detect_resolution=None):
-        # Convert to grayscale if it is a color image
         if len(input_image.shape) == 3 and input_image.shape[2] == 3:
             input_image = cv2.cvtColor(input_image, cv2.COLOR_BGR2GRAY)
 
-        # Preprocessing to smooth regions (e.g., using morphological operations)
         processed_image = morphology.opening(input_image, morphology.disk(5))
 
-        # Detect and smooth edges in the image
         edges_image = self.find_edges_and_smooth(processed_image)
 
         if output_type == "pil":
