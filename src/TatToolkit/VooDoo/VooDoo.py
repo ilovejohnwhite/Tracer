@@ -16,6 +16,9 @@ class VooDoo:
     def cluster_brightness_zone(self, image, mask, n_clusters):
         """Cluster pixels within the specified mask using KMeans"""
         pixels = image[mask].reshape(-1, 3)  # Only consider pixels in the mask
+        if pixels.size == 0:
+            return np.zeros(image[mask].shape)
+        kmeans = KMeans(n_clusters=n_clusters)
         kmeans = KMeans(n_clusters=n_clusters)
         kmeans.fit(pixels)
         centers = kmeans.cluster_centers_
