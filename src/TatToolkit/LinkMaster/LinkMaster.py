@@ -36,13 +36,13 @@ class LinkMaster:
         edges = feature.canny(img_smoothed, sigma=sigma)
         return edges
 
-    def find_edges_and_smooth(self, segmented_image, num_thinning_iterations=3, epsilon=8, thickness=1):
+    def find_edges_and_smooth(self, segmented_image, num_thinning_iterations=3, epsilon=5, thickness=1):
         edges_image = np.full(segmented_image.shape, 255, dtype=np.uint8)
         unique_segments = np.unique(segmented_image)
         sorted_segments = sorted(unique_segments)
 
         for idx, segment in enumerate(sorted_segments):
-            if idx in [1,3]: #skipping darkest region off of black and 2nd region off of white (6 regions with normal set to 4 clusters and 1 cluster for each outlier mask, darkest is 0)
+            if idx in [1,3,5]: #skipping darkest region off of black and 2nd region off of white (6 regions with normal set to 4 clusters and 1 cluster for each outlier mask, darkest is 0)
                 continue
             mask = (segmented_image == segment)
             segment_edges = segmentation.find_boundaries(mask, mode='outer', connectivity=1)
