@@ -19,7 +19,7 @@ class SuckerPunch:
     def execute(self, image, resolution=512, **kwargs):
         from TatToolkit.SuckerPunch import SuckerPunchPro
 
-        cluster_map = {"Light": 3, "Normal": 4, "Heavy": 6, "Unhinged": 8}
+        cluster_map = {"Light": 3, "Normal": 4, "Heavy": 5, "Unhinged": 8}
         label = kwargs.get("n_clusters", "Normal")
         n_clusters = cluster_map.get(label, 4)  
 
