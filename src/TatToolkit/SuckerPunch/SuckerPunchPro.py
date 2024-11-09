@@ -5,7 +5,7 @@ from sklearn.cluster import KMeans
 from TatToolkit.util import resize_image_with_pad, common_input_validate, HWC3
 
 class SuckerPunchPro:
-    def __init__(self, n_clusters=7, smoothing_kernel_size=(9, 9)):
+    def __init__(self, n_clusters=8, smoothing_kernel_size=(10, 10)):
         self.n_clusters = n_clusters
         self.smoothing_kernel_size = smoothing_kernel_size
 
