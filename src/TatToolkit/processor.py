@@ -10,6 +10,11 @@ from TatToolkit.SuckerPunch import SuckerPunchPro
 from TatToolkit.LinkMaster import LinkMaster
 from TatToolkit.BillyGoat import BillyGoat
 from TatToolkit.VooDoo import VooDoo
+from TatToolkit.OkayBuddy import OkayBuddy
+from TatToolkit.Ecstatic import Ecstatic
+from TatToolkit.KillMe import KillMe
+
+
 LOGGER = logging.getLogger(__name__)
 
 
@@ -27,6 +32,9 @@ MODELS.update({
     'LinkMaster': {'class': LinkMaster, 'checkpoint': False},
     'BillyGoat': {'class': BillyGoat, 'checkpoint': False},
     'VooDoo': {'class': VooDoo, 'checkpoint': False},
+    'OkayBuddy': {'class': OkayBuddy, 'checkpoint': False},
+    'Ecstatic': {'class': Ecstatic, 'checkpoint': False},
+    'KillMe': {'class': KillMe, 'checkpoint': False},
 })
 
 
@@ -43,6 +51,9 @@ MODEL_PARAMS.update({
     'LinkMaster': {},
     'VooDoo': {},
     'BillyGoat': {},
+    'OkayBuddy': {},
+    'Ecstatic': {},
+    'KillMe': {},    
 })
 
 CHOICES = f"Choices for the processor are {list(MODELS.keys())}"
