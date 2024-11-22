@@ -12,6 +12,8 @@ annotator_ckpts_path = os.path.join(Path(__file__).parents[2], 'ckpts')
 
 here = Path(__file__).parent.resolve()
 
+HF_MODEL_NAME = "lllyasviel/Annotators"
+
 def HWC3(x):
     assert x.dtype == np.uint8
     if x.ndim == 2:
