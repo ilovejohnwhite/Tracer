@@ -13,7 +13,8 @@ from TatToolkit.VooDoo import VooDoo
 from TatToolkit.OkayBuddy import OkayBuddy
 from TatToolkit.Ecstatic import Ecstatic
 from TatToolkit.KillMe import KillMe
-
+from TatToolkit.OutlineStandard import OutlineStandard
+from TatToolkit.OutlineReal import OutlineReal
 
 LOGGER = logging.getLogger(__name__)
 
@@ -35,6 +36,8 @@ MODELS.update({
     'OkayBuddy': {'class': OkayBuddy, 'checkpoint': False},
     'Ecstatic': {'class': Ecstatic, 'checkpoint': False},
     'KillMe': {'class': KillMe, 'checkpoint': False},
+    'OutlineReal': {'class': OutlineReal, 'checkpoint': False},    
+    'OutlineStandard': {'class': OutlineStandard, 'checkpoint': False},    
 })
 
 
@@ -54,6 +57,8 @@ MODEL_PARAMS.update({
     'OkayBuddy': {},
     'Ecstatic': {},
     'KillMe': {},    
+    'OutlineStandard': {},    
+    'OutlineReal': {},    
 })
 
 CHOICES = f"Choices for the processor are {list(MODELS.keys())}"
