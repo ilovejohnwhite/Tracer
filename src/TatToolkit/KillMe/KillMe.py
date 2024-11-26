@@ -7,7 +7,7 @@ class KillMe:
     def __init__(self):
         pass
 
-    def process_dark_regions(self, input_image, threshold=20.5, epsilon=2, thickness=2): 
+    def process_dark_regions(self, input_image, threshold=20.5, epsilon=2, thickness=1): 
         if len(input_image.shape) == 3 and input_image.shape[2] == 3:
             luminance = np.dot(input_image[..., :3], [0.299, 0.587, 0.114])
         else:
